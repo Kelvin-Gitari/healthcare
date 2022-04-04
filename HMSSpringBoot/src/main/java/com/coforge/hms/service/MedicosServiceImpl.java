@@ -16,7 +16,7 @@ import com.coforge.hms.repository.MedicosRepository;
 
 @Service
 @Transactional
-public class MedicosServiceImpl implements MedicosService {
+public class MedicosServiceImpl implements MedicosService{
 
 	@Autowired
 	private MedicosRepository mRepo;
@@ -30,9 +30,6 @@ public class MedicosServiceImpl implements MedicosService {
 		med.setDate(medDTO.getDate());
 		med.setDoctor(medDTO.getDoctor());
 		med.setPatient(medDTO.getPatient());
-		med.setPrice(medDTO.getPrice());
-		med.setQuantity(medDTO.getQuantity());
-		med.setTotal(medDTO.getTotal());
 
 		return med;
 	}
@@ -43,10 +40,9 @@ public class MedicosServiceImpl implements MedicosService {
 
 	@Override
 	public MedicosDTO save(MedicosDTO medicos) {
-		medicos.setTotal(medicos.getPrice() * medicos.getQuantity());
 		Medicos med = convertDTOtoModel(medicos);
-		
-		return convertModelToDTO(mRepo.save(med));
+		mRepo.save(med);
+		return medicos;
 	}
 
 	@Override
@@ -57,12 +53,10 @@ public class MedicosServiceImpl implements MedicosService {
 		cpyMedicos.setDate(medicos.getDate());
 		cpyMedicos.setDoctor(medicos.getDoctor());
 		cpyMedicos.setPatient(medicos.getPatient());
-		cpyMedicos.setPrice(medicos.getPrice());
-		cpyMedicos.setQuantity(medicos.getQuantity());
-		cpyMedicos.setTotal(medicos.getPrice() * medicos.getQuantity());
-
+		
 		Medicos med = convertDTOtoModel(cpyMedicos);
-		return convertModelToDTO(mRepo.save(med));
+		mRepo.save(med);
+		return convertModelToDTO(med);
 	}
 
 	@Override
@@ -76,40 +70,19 @@ public class MedicosServiceImpl implements MedicosService {
 
 	@Override
 	public MedicosDTO getById(long mid) throws Exception {
-		Medicos med = mRepo.findById(mid).orElseThrow(() -> new Exception("ID NOT FOUND :::: " + mid));
+		Medicos med = mRepo.findById(mid)
+				.orElseThrow(() -> new Exception("ID NOT FOUND :::: " + mid));
 		return convertModelToDTO(med);
 	}
 
 	@Override
 	public List<MedicosDTO> getAll() {
-		List<Medicos> medList = mRepo.findAll();
+		List<Medicos> medList = mRepo.findAll(); 
 		List<MedicosDTO> medDTOList = new ArrayList<>();
-
-		for (Medicos med : medList) {
+		
+		for(Medicos med : medList) {
 			medDTOList.add(convertModelToDTO(med));
 		}
 		return medDTOList;
-	}
-
-	@Override
-	public List<MedicosDTO> getAllByPatientId(long pid) {
-		List<Medicos> medList = mRepo.getAllByPatientId(pid);
-
-		List<MedicosDTO> medDTOList = new ArrayList<>();
-
-		for (Medicos med : medList) {
-			medDTOList.add(convertModelToDTO(med));
-		}
-		return medDTOList;
-	}
-
-	@Override
-	public long getTotal(long id) {
-		List<MedicosDTO> list = getAllByPatientId(id);
-		long total = 0;
-		for(MedicosDTO med : list) {
-			total += med.getTotal();
-		}
-		return total;
 	}
 }

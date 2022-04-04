@@ -12,5 +12,4 @@ public interface PatientService {
 	public PatientDTO getById(long pid) throws Exception;
 	public List<PatientDTO> getAll();
 	public Map<String, Boolean> delete(long pid) throws Exception;
-	public boolean existsByNumber(PatientDTO patient);
 }

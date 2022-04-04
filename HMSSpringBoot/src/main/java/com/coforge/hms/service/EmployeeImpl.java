@@ -89,14 +89,4 @@ public class EmployeeImpl implements EmployeeService {
 
 	}
 
-	@Override
-	public boolean isExists(EmployeeDTO empDto) {
-		Employee emp = eRepo.existsEmployeeByEmpMobileNo(empDto.getEmpMobileNo());
-		if(emp != null) {
-			return true;
-		}else {			
-			return false;
-		}
-	}
-
 }

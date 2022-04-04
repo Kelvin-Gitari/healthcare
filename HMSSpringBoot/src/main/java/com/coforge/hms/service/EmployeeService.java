@@ -11,7 +11,6 @@ public interface EmployeeService {
     public EmployeeDTO update(EmployeeDTO employee, long empId) throws Exception;
 	public EmployeeDTO getById(long empId) throws Exception;
 	public List<EmployeeDTO> getAll();
-	public Map<String, Boolean> delete(long empId) throws Exception;
-	public boolean isExists(EmployeeDTO emp);
+	public Map<String, Boolean> delete(long empId) throws Exception; 
 
 }

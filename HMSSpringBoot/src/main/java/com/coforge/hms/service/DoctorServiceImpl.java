@@ -92,15 +92,4 @@ public class DoctorServiceImpl implements DoctorService{
 		
 		return response;
 	}
-
-	@Override
-	public boolean existsByNumber(DoctorDTO docDto) {
-		Doctor doc = dRepo.existsDoctorByDoctorPhoneNO(docDto.getDoctorPhoneNO());
-		if(doc != null) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 }
