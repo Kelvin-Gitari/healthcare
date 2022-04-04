@@ -12,4 +12,6 @@ public interface MedicosService {
 	public MedicosDTO getById(long mId) throws Exception;
 	public List<MedicosDTO> getAll();
 	public Map<String, Boolean> delete(long mId) throws Exception;
+	public List<MedicosDTO> getAllByPatientId(long pid);
+	public long getTotal(long id);
 }

@@ -98,4 +98,16 @@ public class PatientServiceImpl implements PatientService {
 		return response;
 	}
 
+	@Override
+	public boolean existsByNumber(PatientDTO patient) {
+		Patient pat = pRepo.existsPatientByPMobileNo(patient.getpMobileNo());
+		
+		if(pat != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }

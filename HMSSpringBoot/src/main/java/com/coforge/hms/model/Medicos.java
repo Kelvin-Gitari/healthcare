@@ -1,6 +1,5 @@
 package com.coforge.hms.model;
 
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,10 +21,19 @@ public class Medicos {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MED_ID")
 	private long mId;
-	
+
 	@Column(name = "MED_RECORD")
 	private String mRecord;
-	
+
+	@Column(name = "MED_PRICE")
+	private int price;
+
+	@Column(name = "MED_QUANTITY")
+	private int quantity;
+
+	@Column(name = "MED_TOTAL")
+	private long total;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "MED_DATE")
 	private Date date;
@@ -33,7 +41,7 @@ public class Medicos {
 	@OneToOne
 	@JoinColumn(name = "DOC_ID")
 	private Doctor doctor;
-	
+
 	@OneToOne
 	@JoinColumn(name = "pid")
 	private Patient patient;
@@ -78,8 +86,28 @@ public class Medicos {
 		this.patient = patient;
 	}
 
-	
-	
-	
-	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public long getTotal() {
+		return total;
+	}
+
+	public void setTotal(long total) {
+		this.total = total;
+	}
+
 }

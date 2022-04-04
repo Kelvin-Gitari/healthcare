@@ -12,6 +12,6 @@ public interface DoctorService {
 	public DoctorDTO getById(long doctorId) throws Exception;
 	public List<DoctorDTO> getAll();
 	public Map<String, Boolean> delete(long doctorId) throws Exception;
-
+	public boolean existsByNumber(DoctorDTO doc);
 
 }

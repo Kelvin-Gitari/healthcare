@@ -1,12 +1,12 @@
 package com.coforge.hms.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ import com.coforge.hms.dto.PatientDTO;
 import com.coforge.hms.service.PatientServiceImpl;
 
 //= > Path -> http:localhost:8080/hms/api/patient
-@CrossOrigin("http://localhost:4200")
+//@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api")
 public class PatientController {
@@ -63,6 +63,18 @@ public class PatientController {
 	{
 		List<PatientDTO> patDTOList =  patientServiceImpl.getAll();
 		return ResponseEntity.ok().body(patDTOList);
+	}
+	
+	@PostMapping(value = "/patient/check")
+	public ResponseEntity<Map<String, Boolean>> isExists(@RequestBody PatientDTO patient){
+		Map<String, Boolean> res = new HashMap<>();
+		if(patientServiceImpl.existsByNumber(patient)) {
+			res.put("available", Boolean.TRUE);
+		}else {
+			res.put("available", Boolean.FALSE);
+		}
+		
+		return ResponseEntity.ok().body(res);
 	}
 	
 }

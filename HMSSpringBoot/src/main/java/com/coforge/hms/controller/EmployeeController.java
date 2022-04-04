@@ -1,13 +1,12 @@
 package com.coforge.hms.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,7 @@ import com.coforge.hms.dto.EmployeeDTO;
 import com.coforge.hms.service.EmployeeImpl;
 
 //= > Path -> http:localhost:8080/hms/api/employee
-@CrossOrigin("http://localhost:4200")
+//@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api")
 //@PreAuthorize("hasRole('ADMIN')")
@@ -63,6 +62,18 @@ public class EmployeeController{
 	{
 		List<EmployeeDTO> empDTO = employeeImpl.getAll();
 		return ResponseEntity.ok().body(empDTO);
+	}
+	
+	@PostMapping(value="/employee/check")
+	public ResponseEntity<Map<String, Boolean>> isExists(@RequestBody EmployeeDTO empDTO){
+		Map<String, Boolean> res = new HashMap<>();
+		if(employeeImpl.isExists(empDTO)) {
+			res.put("available", Boolean.TRUE);
+		}else {
+			res.put("available", Boolean.FALSE);
+		}
+		
+		return ResponseEntity.ok().body(res);
 	}
 	
 }
