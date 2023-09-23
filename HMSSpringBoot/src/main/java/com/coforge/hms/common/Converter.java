@@ -2,7 +2,7 @@ package com.coforge.hms.common;
 
 /**
  * 
- * @author DELL
+ * @author Kelvin-Gitari
  *
  * @param <X> --> DTO
  * @param <Y> --> Model
